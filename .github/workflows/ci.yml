@@ -96,6 +96,7 @@ jobs:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_KEY }}
+          envs: IMAGE
           # port: ${{ secrets.PORT }}
           # 2.Pull the image in vps 
           # 3.docker compose karo 
