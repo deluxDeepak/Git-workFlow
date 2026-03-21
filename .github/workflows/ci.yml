@@ -55,7 +55,7 @@ jobs:
       
       - name: Show gitHub secret
         run: |
-          echo "name-${{secret.DOCKER_USERNAME}}  and password- ${{secret.DOCKER_PASSWORD}}"
+          echo "name-${{secrets.DOCKER_USERNAME}}  and password- ${{secrets.DOCKER_PASSWORD}}"
 
 
       # Login karke docker hub pe push kar sakte hai 
@@ -65,9 +65,9 @@ jobs:
         # Use Personal access token for login in docker hub
 
         with:
-          username: ${{secret.DOCKER_USERNAME}}
-          password: ${{secret.DOCKER_PASSWORD}}
-          run: echo "Login successfull"
+          username: ${{secrets.DOCKER_USERNAME}}
+          password: ${{secrets.DOCKER_PASSWORD}}
+  
 
       # 5.Complition message 
       - name: Note complition
