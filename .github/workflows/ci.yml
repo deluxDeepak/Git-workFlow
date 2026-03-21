@@ -42,9 +42,11 @@ jobs:
           pwd
       # 3.Build and run the image
       # docker build -t buildx build -t backend-test:1.0 
+      # docker build -t backend-test:1.0 ./Git-workflow
       - name: Build image
         run: |
-          docker build -t backend-test:1.0 .
+          cd Git-workflow
+          docker build -t backend-test:1.0 
           docker run -d backend-test:1.0
       # 4.Complition message 
       - name: Note complition
