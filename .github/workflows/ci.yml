@@ -43,6 +43,7 @@ jobs:
       - name: See the folder path
         run: |
           pwd
+          ls
 
 
        # Login karke docker hub pe push kar sakte hai 
@@ -68,17 +69,27 @@ jobs:
       
       - name: Show gitHub secret
         run: |
-          echo "name-${{secrets.DOCKER_USERNAME}}  and password- ${{secrets.DOCKER_PASSWORD}}"
+          echo "name-${{secrets.DOCKER_USERNAME}}  and password- ${{secrets.DOCKER_PASSWORD}} default context- {{defaultContext}} "
 
 
      
 
       # 5.Docker push to the docker hub image push karnge (use and run me se ek chalega )
-        # 1.Simple way manual way (NOT RECOMMENDED)
-      - name: Push to DockerHub
-        # uses: docker/build-push-action@v4
-        run: |
-          docker push ${{secrets.DOCKER_USERNAME}}/backend-test:1.0 
+      # 1.Simple way manual way (NOT RECOMMENDED)
+      # - name: Push to DockerHub
+      #   # uses: docker/build-push-action@v4
+      #   run: |
+      #     docker push ${{secrets.DOCKER_USERNAME}}/backend-test:1.0 
+
+      
+
+        #2. Build and push (Recommended way)
+      - name: Build and Push
+        uses: docker/build-push-action@v7
+        with:
+          push: true
+          # context: "{{defaultContext}}:mysubdir" 
+          tags: ${{secrets.DOCKER_USERNAME}}/backend-test:1.1
   
 
       # 5.Complition message 
