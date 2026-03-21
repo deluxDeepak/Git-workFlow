@@ -91,7 +91,8 @@ jobs:
           # context: "{{defaultContext}}:mysubdir" 
           tags: ${{secrets.DOCKER_USERNAME}}/backend-test:1.1
 
-        # 6.SSH deploy to VPS (EC2)
+        # 6.SSH deploy to VPS (EC2) 
+          # 1.login to VPS 
       - name: Deploy VPS
         uses: appleboy/ssh-action@v1
         with: 
@@ -99,8 +100,13 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_KEY }}
           # port: ${{ secrets.PORT }}
-          script: whoami
-          
+          # 2.Pull the image in vps 
+          # 3.docker compose karo 
+          script: |
+            docker pull deepak/backend-test:1.1
+            docker run -d -p 3000:3000 deepak/backend-test:1.1
+
+
   
 
       # 5.Complition message 
