@@ -1,6 +1,6 @@
 # Backend Dockerfile
 # Uses a Debian-slim Node image to avoid native optional-dependency issues
-FROM node:20-slim
+FROM node:24-alpine
 
 # Create app directory
 WORKDIR /app

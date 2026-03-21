@@ -33,7 +33,7 @@ jobs:
     steps:
       # 0.Checkout repo so Dockerfile is available
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
       # 1.Add support for more platforms with QEMU (optional)
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v4
@@ -51,14 +51,28 @@ jobs:
         run: |
           docker build -t backend-test:1.0 .
           docker run -d backend-test:1.0
-      # 4.Complition message 
+
+      
+      - name: Show gitHub secret
+        run: |
+          echo "name-${{secret.DOCKER_USERNAME}}  and password- ${{secret.DOCKER_PASSWORD}}"
+
+
+      # Login karke docker hub pe push kar sakte hai 
+      # 4.Docker login
+      - name: Login DockerHub
+        uses: docker/login-action@v4
+        # Use Personal access token for login in docker hub
+
+        with:
+          username: ${{secret.DOCKER_USERNAME}}
+          password: ${{secret.DOCKER_PASSWORD}}
+          run: echo "Login successfull"
+
+      # 5.Complition message 
       - name: Note complition
         run: echo "Docker build successfull "
-      
-      # more Steps in build
-      - name: Note For job build-images
-        run: |
-          echo "This job builds images but does not push them. To push, add registry credentials as secrets and set push: true."
+
       
 
   
