@@ -104,7 +104,7 @@ jobs:
           # 3.docker compose karo 
           # docker pull deepak/backend-test:1.1
           script: |
-            docker run -d -p 3000:3000 deepak/backend-test:1.1
+            docker run -d hello-world
 
 
   
