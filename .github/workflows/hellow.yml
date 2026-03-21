@@ -1,0 +1,30 @@
+name: hellow workflow
+# A new workflow 
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  hellow-workflow: 
+    name: workflow name
+    runs-on: ubuntu-latest
+    env: 
+      MYENV: Deepak kumar
+      
+
+    steps:
+      - name: Checkout code 
+        uses: actions/checkout
+      - name: Checkout the path
+        run: |
+          ls 
+          whoami
+      - name: Display variable 
+        run: |
+          echo "My name is $MYENV"
+      - name: Complete message
+        run: |
+          echo "Workflow is completed"
