@@ -43,6 +43,19 @@ jobs:
       - name: See the folder path
         run: |
           pwd
+
+
+       # Login karke docker hub pe push kar sakte hai 
+      # 4.Docker login
+      - name: Login DockerHub
+        uses: docker/login-action@v4
+        # Use Personal access token for login in docker hub
+
+        with:
+          username: ${{secrets.DOCKER_USERNAME}}
+          password: ${{secrets.DOCKER_PASSWORD}}
+
+        
       # 3.Build and run the image
       # docker build -t buildx build -t backend-test:1.0 
       # cd Git-workFlow
@@ -58,15 +71,7 @@ jobs:
           echo "name-${{secrets.DOCKER_USERNAME}}  and password- ${{secrets.DOCKER_PASSWORD}}"
 
 
-      # Login karke docker hub pe push kar sakte hai 
-      # 4.Docker login
-      - name: Login DockerHub
-        uses: docker/login-action@v4
-        # Use Personal access token for login in docker hub
-
-        with:
-          username: ${{secrets.DOCKER_USERNAME}}
-          password: ${{secrets.DOCKER_PASSWORD}}
+     
 
       # 5.Docker push to the docker hub image push karnge (use and run me se ek chalega )
         # 1.Simple way manual way (NOT RECOMMENDED)
