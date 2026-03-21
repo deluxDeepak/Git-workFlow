@@ -31,6 +31,9 @@ jobs:
     name: Build docker image 
     runs-on: ubuntu-latest
     steps:
+      # 0.Checkout repo so Dockerfile is available
+      - name: Checkout
+        uses: actions/checkout@v4
       # 1.Add support for more platforms with QEMU (optional)
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v4
