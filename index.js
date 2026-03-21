@@ -1,4 +1,5 @@
 const express = require('express');
+const addnumber = require('./addNumber');
 
 const app = express();
 app.use(express.json());
@@ -11,6 +12,14 @@ app.get('/', (req, res) => {
     res.send({ ok: true, sum: `Sum is ${sum}` });
 }
 );
+
+app.get("/health",(req,res)=>{
+    res.status(200).json({
+        message:"Working backend normally",
+        uptime:Date.now().toLocaleString()
+
+    })
+})
 
 
 
