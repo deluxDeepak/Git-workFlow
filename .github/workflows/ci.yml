@@ -30,6 +30,8 @@ jobs:
   build-images:
     name: Build docker image 
     runs-on: ubuntu-latest
+    env:
+      IMAGE: ${{ secrets.DOCKER_USERNAME }}/backend-test:1.0
     steps:
       # 0.Checkout repo so Dockerfile is available
       - name: Checkout
@@ -61,15 +63,10 @@ jobs:
       # docker build -t buildx build -t backend-test:1.0 
       # cd Git-workFlow
       # docker build -t backend-test:1.0 ./Git-workflow
-      - name: Build image
+      - name: Build image (local smoke)
         run: |
-          docker build -t ${{secrets.DOCKER_USERNAME}}/backend-test:1.0 .
-          docker run -d ${{secrets.DOCKER_USERNAME}}/backend-test:1.0
-
-      
-      - name: Show gitHub secret
-        run: |
-          echo "name-${{secrets.DOCKER_USERNAME}}  and password- ${{secrets.DOCKER_PASSWORD}} default context- {{defaultContext}} "
+          docker build -t "$IMAGE" .
+          docker run -d "$IMAGE"
 
 
      
@@ -89,7 +86,7 @@ jobs:
         with:
           push: true
           # context: "{{defaultContext}}:mysubdir" 
-          tags: ${{secrets.DOCKER_USERNAME}}/backend-test:1.1
+          tags: ${{ env.IMAGE }}
 
         # 6.SSH deploy to VPS (EC2) 
           # 1.login to VPS 
@@ -103,8 +100,8 @@ jobs:
           # 2.Pull the image in vps 
           # 3.docker compose karo 
           script: |
-            docker pull deepak/backend-test:1.1
-            docker run -d hello-world
+            docker pull $IMAGE
+            docker run -d $IMAGE
 
 
   
